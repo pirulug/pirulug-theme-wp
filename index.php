@@ -21,7 +21,7 @@
 </div>
 
 <!-- Enlaces -->
-<div class="section">
+<!-- <div class="section">
   <h2>🔗 Enlaces</h2>
   <nav class="links-menu">
     <?php
@@ -32,6 +32,6 @@
     ]);
     ?>
   </nav>
-</div>
+</div> -->
 
 <?php get_footer(); ?>
