@@ -1,3 +1,5 @@
+<!-- header.php -->
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -43,11 +45,11 @@
 
     <!-- Menú -->
     <nav class="menu">
-      <?php
-      wp_nav_menu([
-        'theme_location' => 'main-menu',
-        'container'      => false,
-        'items_wrap'     => '%3$s', // solo los <li>
-      ]);
-      ?>
-    </nav>
+  <ul class="main-nav"> <?php
+    wp_nav_menu([
+      'theme_location' => 'main-menu',
+      'container'      => false,
+      'items_wrap'     => '%3$s', 
+    ]);
+    ?>
+  </ul> </nav>

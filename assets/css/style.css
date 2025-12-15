@@ -1,3 +1,7 @@
+/* =========================================
+   1. FUENTES Y VARIABLES
+   ========================================= */
+
 @font-face {
   font-family: "Google Sans Code";
   src: url("../font/GoogleSansCode-Italic.woff2") format("woff2"),
@@ -17,508 +21,1479 @@
 }
 
 :root {
-  --bg: #fff;
-  --text: #111;
-  --accent1: #e60073;
-  --accent2: #d49e00;
-  --accent3: #005f99;
-  --accent4: #009933;
-  --meta: #e85d04;
-  --ascii: #5a189a;
-  --border: #bbb;
+  /* --- PALETA LIGHT (Tu pedido) --- */
+  --bg-body: #f7f7f7;
+  /* Fondo gris muy claro */
+  --bg-card: #ffffff;
+  /* Contenedor blanco puro */
+  --text: #111111;
+  /* Texto casi negro */
+  --border: #333333;
+  /* Bordes fuertes y visibles */
+
+  /* Acentos estilo Terminal Retro */
+  --accent1: #0000aa;
+  /* Azul oscuro (Links) */
+  --accent2: #aa0000;
+  /* Rojo ladrillo */
+  --accent3: #008000;
+  /* Verde puro */
+  --meta: #666666;
+  /* Gris para fechas */
+  --ascii: #444444;
+  --console-cursor: #111;
+  /* Color del cursor parpadeante */
 }
 
 [data-theme="dark"] {
-  --bg: #000;
-  --text: #f8f8f2;
-  --accent1: #ff4d94;
-  --accent2: #ffee00;
-  --accent3: #00e5ff;
-  --accent4: #00ff6a;
-  --meta: #ff9933;
-  --ascii: #c77dff;
-  --border: #555;
+  /* --- PALETA DARK (Tu pedido) --- */
+  --bg-body: #2a2a2a;
+  /* Fondo gris medio (Carcasa) */
+  --bg-card: #1a1a1a;
+  /* Contenedor casi negro (Pantalla) */
+  --text: #cccccc;
+  /* Texto gris claro (para no quemar la vista) */
+  --border: #555555;
+  /* Bordes grises */
+
+  /* Acentos Neon Terminal */
+  --accent1: #00ff00;
+  /* Verde Fósforo Clásico */
+  --accent2: #ffff00;
+  /* Amarillo alerta */
+  --accent3: #00ffff;
+  /* Cyan */
+  --meta: #888888;
+  --ascii: #00ff00;
+  /* El arte ASCII brilla en verde */
+  --console-cursor: #00ff00;
+}
+
+/* =========================================
+   2. GLOBAL Y RESET "SQUARE"
+   ========================================= */
+
+* {
+  box-sizing: border-box;
+  /* FUERZA BRUTA: Nada de bordes redondeados */
+  border-radius: 0 !important;
 }
 
 body {
   margin: 0;
-  font-family: "Google Sans Code", "Fira Code", "Courier New", monospace;
-  background: var(--bg);
+  font-family: "Google Sans Code", "Courier New", monospace;
+  /* Todo monoespaciado */
+  background-color: var(--bg-body);
   color: var(--text);
   line-height: 1.6;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 16px;
-  transition: background 0.3s, color 0.3s;
+  padding: 20px;
+  /* Patrón de líneas de escaneo muy sutil */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 100% 3px;
 }
 
 .container {
-  max-width: 820px;
+  max-width: 860px;
   width: 100%;
+  background: var(--bg-card);
+  padding: 40px;
+  /* Borde sólido estilo ventana de comando */
+  border: 2px solid var(--border);
+  box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.15);
+  /* Sombra dura, sin difuminar */
 }
 
+/* Enlaces estilo consola */
 a {
   color: var(--accent1);
   text-decoration: none;
+  transition: color 0.2s ease;
   word-break: break-word;
-  transition: color 0.3s;
 }
 
 a:hover {
-  text-decoration: underline;
-}
-
-/* h1,
-h2,
-h3 {
-  font-weight: bold;
-  text-align: center;
-  margin: 1.2em 0 0.5em;
-}
-
-h1 {
+  background-color: transparent;
   color: var(--accent2);
-  font-size: 1.8rem;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-h2 {
-  color: var(--accent3);
-  font-size: 1.4rem;
-}
-
-h3 {
-  color: var(--accent4);
-  font-size: 1.2rem;
-} */
+/* =========================================
+   3. HEADER Y ASCII
+   ========================================= */
 
 .ascii-line {
   text-align: center;
   color: var(--ascii);
-  margin: 1em 0;
   font-weight: bold;
-  font-size: 0.9rem;
-  overflow-wrap: anywhere;
+  font-size: 14px;
+  white-space: pre;
+  overflow-x: hidden;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
+  /* Más compacto */
 }
 
-.post-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+/* =========================================
+   4. BIENVENIDA (CON EFECTO CURSOR)
+   ========================================= */
 
-.post-list li {
-  margin: 0.4em 0;
-  padding: 0.4em 0;
-  border-bottom: 1px dashed var(--border);
-}
-
-.post-list li:last-child {
-  border-bottom: none;
-}
-
-.meta {
-  color: var(--meta);
-}
-
-.section {
-  margin-top: 2em;
-}
-
-footer {
-  border-top: 1px solid var(--border);
-  margin-top: 2em;
-  padding-top: 1em;
-  text-align: center;
-  font-size: 0.85em;
-  color: var(--ascii);
-}
-
-/* Reset básico para el ul anidado */
-.menu, .menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Contenedor principal */
-.menu {
-  text-align: start;
-  margin: 1.2em 0;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  color: var(--ascii);
-}
-
-/* Elementos de primer nivel */
-.menu > li {
-  display: inline-block;       /* inline-block es más predecible para submenus */
-  position: relative;          /* <<--- imprescindible para que el .sub-menu se posicione respecto a este li */
-  vertical-align: top;
-}
-
-/* Links */
-.menu a {
-  color: var(--accent1);
-  text-decoration: none;
-  padding: 0.5em 0.8em;
-  display: inline-block;
-  transition: color 0.2s;
-}
-
-.menu a:hover {
-  color: var(--accent2);
-  text-decoration: underline;
-}
-
-/* Flecha indicadora para items con submenu */
-.menu .has-sub::after {
-  content: "▾";
-  margin-left: .4em;
-  font-size: .8em;
-  transition: transform .18s;
-}
-
-/* SUBMENU */
-.sub-menu {
-  display: none;               /* oculto por defecto */
-  position: absolute;
-  top: 35px;
-  left: 0;
-  transform: translateY(6px);  /* pequeño espacio */
-  background: var(--bg1, #222);
-  /* border-radius: 6px; */
-  padding: .25rem 0;
-  min-width: 160px;
-  z-index: 9999;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  white-space: nowrap;
-}
-
-/* items dentro del submenú */
-.sub-menu li {
-  display: block;
-}
-.sub-menu a {
-  padding: .5em 1em;
-  display: block;
-  color: var(--accent1);
-}
-.sub-menu a:hover {
-  background: var(--accent1);
-  color: var(--bg1, #fff);
-  text-decoration: none;
-}
-
-/* Mostrar submenu en hover (escritorio) y al tener foco (accesibilidad) */
-.menu li:hover > .sub-menu,
-.menu li:focus-within > .sub-menu,
-.menu li.open > .sub-menu {   /* .open para la versión móvil con JS */
-  display: block;
-}
-
-/* Girar la flechita cuando está abierto/focus */
-.menu li:focus-within > .has-sub::after,
-.menu li.open > .has-sub::after {
-  transform: rotate(180deg);
-}
-
-/* Recomiendo forzar visible overflow en los contenedores que suelen cortar el menú */
-.menu, nav { overflow: visible; }
-
-
-/* Bienvenida */
 .welcome {
-  text-align: center;
-  margin: 1em 0;
-  padding: 1em;
-  border-top: 2px solid var(--border);
-  border-bottom: 2px solid var(--border);
+  border: 1px solid var(--border);
+  padding: 1.5em;
+  margin: 2em 0;
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .welcome h1 {
   margin-top: 0;
+  color: var(--text);
+  font-size: 1.6rem;
+  display: inline-block;
 }
 
-.welcome p {
-  max-width: 600px;
-  margin: auto;
+/* Cursor parpadeante al final del título */
+.welcome h1::after {
+  content: " █";
+  color: var(--console-cursor);
+  animation: blink 1s step-end infinite;
 }
 
-/* Botón de tema */
-.theme-toggle {
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  background: var(--bg);
-  border: 2px solid var(--ascii);
-  border-radius: 6px;
-  padding: 4px 8px;
-  color: var(--ascii);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s;
-}
+@keyframes blink {
 
-.theme-toggle:hover {
-  background: var(--ascii);
-  color: var(--bg);
-}
+  0%,
+  100% {
+    opacity: 1;
+  }
 
-/* Responsive */
-@media (max-width: 600px) {
-  body {
-    padding: 12px;
-  }
-  h1 {
-    font-size: 1.5rem;
-  }
-  h2 {
-    font-size: 1.2rem;
-  }
-  h3 {
-    font-size: 1rem;
-  }
-  .ascii-line {
-    font-size: 0.8rem;
-  }
-  .post-list li {
-    font-size: 0.95rem;
-  }
-  nav {
-    text-align: center;
+  50% {
+    opacity: 0;
   }
 }
 
-/**/
+/* =========================================
+   5. MENÚ DE NAVEGACIÓN (Multinivel / Escalera)
+   ========================================= */
 
-/* Post */
+nav.menu {
+  margin: 2em 0;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+  position: relative;
+  z-index: 500;
+  /* Z-index alto para que nada lo tape */
+}
+
+/* Reset de listas */
+.menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0;
+}
+
+/* --- NIVEL 1 (Barra Principal) --- */
+.menu>ul>li {
+  display: inline-block;
+  position: relative;
+  /* Referencia para el Nivel 2 */
+  font-size: 1.1rem;
+}
+
+.menu a {
+  display: block;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  color: var(--accent1);
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  /* Evita que el texto se parta en dos líneas */
+}
+
+.menu a:hover {
+  background: var(--text);
+  color: var(--bg-body);
+}
+
+/* --- SUBMENÚS (Base) --- */
+.menu .sub-menu {
+  display: none;
+  /* Oculto por defecto */
+  position: absolute;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  min-width: 220px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+/* Mostrar menú al hacer hover en el padre */
+.menu li:hover>.sub-menu {
+  display: block;
+}
+
+/* Estilos de los items dentro de submenús */
+.menu .sub-menu li {
+  display: block;
+  position: relative;
+  /* ¡IMPORTANTE! Referencia para el Nivel 3 */
+  border-bottom: 1px dashed var(--border);
+  font-size: 1rem;
+}
+
+.menu .sub-menu li:last-child {
+  border-bottom: none;
+}
+
+.menu .sub-menu a {
+  padding: 12px 15px;
+  text-transform: none;
+  /* Submenús texto normal */
+}
+
+.menu .sub-menu a:hover {
+  background: var(--accent1);
+  color: var(--bg-card);
+}
+
+/* --- POSICIONAMIENTO NIVEL 2 (Cae abajo) --- */
+.menu>ul>li>.sub-menu {
+  top: 100%;
+  left: 0;
+}
+
+/* --- POSICIONAMIENTO NIVEL 3+ (Sale al costado / Escalera) --- */
+.menu .sub-menu .sub-menu {
+  top: -2px;
+  /* Se alinea con el borde superior del padre */
+  left: 100%;
+  /* Se mueve completamente a la derecha */
+  margin-left: 2px;
+  /* Un pequeño margen para separar */
+}
+
+/* Indicadores visuales (Flechas) */
+
+/* Flecha abajo para Nivel 1 */
+.menu>ul>.menu-item-has-children>a::after {
+  content: " [v]";
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+/* Flecha derecha para Nivel 2+ */
+.menu .sub-menu .menu-item-has-children>a::after {
+  content: " >>";
+  /* Flecha estilo terminal */
+  float: right;
+  font-weight: bold;
+}
+
+/* =========================================
+   6. LISTA DE ARTÍCULOS (Terminal List)
+   ========================================= */
+
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 2em 0;
+}
+
+.post-list li {
+  border-bottom: 1px dashed var(--border);
+  padding: 12px 0;
+  display: flex;
+  align-items: baseline;
+  transition: background 0.1s;
+}
+
+.post-list li:hover {
+  background: rgba(128, 128, 128, 0.1);
+}
+
+/* Símbolo de prompt antes de cada post */
+.post-list li::before {
+  content: ">";
+  margin-right: 12px;
+  color: var(--accent1);
+  font-weight: bold;
+}
+
+.post-list li a {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-left: 10px;
+  color: var(--text);
+  border: none;
+}
+
+.post-list li a:hover {
+  background: var(--accent1);
+  color: var(--bg-card) !important;
+  box-shadow: 0 0 0 2px var(--accent1);
+  /* Expande el bloque de hover */
+}
+
+/* =========================================
+   7. CONTENIDO DEL POST
+   ========================================= */
+
 .post-title {
   font-size: 1.8rem;
-  color: var(--accent2);
-  text-align: center;
-  margin-bottom: 0.4em;
+  border-bottom: 4px solid var(--text);
+  /* Subrayado grueso */
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .post-meta {
-  text-align: center;
   font-size: 0.9rem;
   color: var(--meta);
-  margin-bottom: 1.2em;
+  margin-bottom: 2rem;
+  font-family: monospace;
 }
 
-.post-meta span {
-  margin: 0 0.5em;
+/* Bloques de código (Look hacker) */
+pre {
+  background: #000;
+  color: #0f0;
+  /* Siempre verde sobre negro en código */
+  padding: 20px;
+  border: 2px solid var(--border);
+  overflow-x: auto;
+  font-size: 0.9em;
 }
 
-.post-image {
-  display: block;
-  max-width: 100%;
-  margin: 1.2em auto;
-  border: 2px dashed var(--border);
-  border-radius: 12px; /* un poco más redondeado */
-  overflow: hidden; /* evita que la imagen sobresalga */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* mejora visual */
+blockquote {
+  border-left: 5px solid var(--accent1);
+  margin: 2em 0;
+  padding-left: 1em;
+  background: rgba(128, 128, 128, 0.05);
+  font-style: italic;
 }
 
 .post-image img {
-  width: 100%;
-  height: auto; /* mantiene proporción original */
-  max-height: 450px; /* límite para que no sea gigante */
-  object-fit: cover; /* ajusta imagen dentro del contenedor */
-  display: block;
+  border: 2px solid var(--border);
+  padding: 5px;
+  /* Marco interno */
+  background: var(--bg-card);
 }
 
-/* Tabla de contenido */
+/* =========================================
+   8. COMPONENTES
+   ========================================= */
 
+/* Tabla de Contenidos */
 .toc {
-  border: 1px solid var(--ascii);
+  border: 2px solid var(--border);
   padding: 1em;
-  margin: 1.5em 0;
-  font-size: 0.95rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-body);
 }
 
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1rem;
-  color: var(--accent3);
-}
-
-.toc ul {
-  margin: 0;
-  padding-left: 1.2em;
-}
-
-.toc li {
-  margin: 0.3em 0;
-}
-
-/* Sangrías automáticas por nivel */
-.toc li[data-level="2"] {
-  margin-left: 0.5em;
-}
-.toc li[data-level="3"] {
-  margin-left: 1em;
-}
-.toc li[data-level="4"] {
-  margin-left: 1.5em;
-}
-.toc li[data-level="5"] {
-  margin-left: 2em;
-}
-.toc li[data-level="6"] {
-  margin-left: 2.5em;
-}
-
-.post-content {
-  margin-top: 1.5em;
-  line-height: 1.7;
-}
-
-.related {
-  margin-top: 2em;
-  border-top: 1px dashed var(--border);
-  padding-top: 1em;
-}
-
-.related h3 {
-  font-size: 1.2rem;
-  color: var(--accent4);
-  margin-bottom: 0.5em;
-}
-
-.related ul {
-  list-style: none;
-  padding: 0;
-}
-
-.related li {
-  margin: 0.4em 0;
-}
-
-/*Siguiente Anterior*/
-
-.post-navigation {
-  margin: 2rem 0;
-}
-
-.post-navigation .nav-links {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.post-navigation .nav-previous a,
-.post-navigation .nav-next a {
-  text-decoration: none;
-  font-weight: 600;
-  color: inherit;
-}
-
-.post-navigation .nav-previous a:hover,
-.post-navigation .nav-next a:hover {
-  text-decoration: underline;
-}
-
-/* En pantallas pequeñas, apilamos */
-@media (max-width: 640px) {
-  .post-navigation .nav-links {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .post-navigation .nav-next {
-    align-self: flex-end;
-  }
-}
-
-/*Lins*/
-
-.links-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.links-list li::after {
-  content: "·";
-  margin-left: 0.5rem;
-}
-
-.links-list li:last-child::after {
-  content: "";
-}
-
-.links-list a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.links-list a:hover {
-  text-decoration: underline;
-}
-
-/* === Formulario terminal retro === */
-.terminal-form {
-  width: 100%;
-  background: #000;
-  border: 2px solid var(--accent1);
-  color: var(--accent1);
   font-size: 1rem;
-  padding: 0.6em;
-  margin: 2rem 0;
+  text-transform: uppercase;
+  background: var(--text);
+  color: var(--bg-body);
+  display: inline-block;
+  padding: 2px 6px;
+  margin-top: 0;
+}
+
+/* Botón Tema */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--bg-card);
+  border: 2px solid var(--text);
+  cursor: pointer;
+  z-index: 1000;
+  /* Sombra dura */
+  box-shadow: 4px 4px 0 var(--text);
   display: flex;
   align-items: center;
-  border-radius: 4px;
-  /* box-shadow: 0 0 10px var(--accent1); */
+  justify-content: center;
 }
 
+.theme-toggle:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--text);
+}
+
+.theme-toggle svg path {
+  stroke: var(--text);
+}
+
+/* Scrollbar brutalista */
+::-webkit-scrollbar {
+  width: 14px;
+  background: var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent1);
+}
+
+/* Footer */
+footer {
+  margin-top: 4em;
+  border-top: 2px solid var(--border);
+  padding-top: 2em;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* =========================================
+   9. RESPONSIVE
+   ========================================= */
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 20px;
+    border-width: 1px;
+  }
+
+  .welcome h1 {
+    font-size: 1.3rem;
+  }
+
+  .post-list li {
+    flex-direction: column;
+  }
+
+  .post-list li::before {
+    content: ">>";
+  }
+
+  /* Cambia prompt en móvil */
+}
+
+/* =========================================
+   BUSCADOR ESTILO TERMINAL
+   ========================================= */
+
+.search-section {
+  margin: 2em 0;
+}
+
+.terminal-form {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  /* O usa #000 si quieres contraste total */
+  border: 2px solid var(--border);
+  padding: 10px 15px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* El contenedor del label ocupa todo el espacio */
 .terminal-form label {
   display: flex;
+  flex-grow: 1;
   align-items: center;
+  margin-bottom: 0;
+  /* Fix para algunos resets */
   width: 100%;
 }
 
+/* El texto "visitor@blog..." */
 .terminal-form .prompt {
-  color: var(--accent1);
-  margin-right: 0.5em;
+  color: var(--accent3);
+  /* Cyan o Verde */
+  margin-right: 10px;
   font-weight: bold;
   user-select: none;
+  /* Para que no se seleccione al copiar */
+  white-space: nowrap;
 }
 
+/* El input donde se escribe */
 .terminal-form .search-field {
   background: transparent;
   border: none;
-  outline: none;
-  color: var(--accent1);
-  width: 100%;
+  color: var(--text);
   font-family: inherit;
-  caret-color: var(--accent1);
+  /* Hereda la fuente monoespaciada */
+  font-size: 1rem;
+  width: 100%;
+  outline: none;
+  /* Quita el borde azul del navegador */
+  font-weight: bold;
 }
 
 .terminal-form .search-field::placeholder {
-  color: var(--accent1);
-  opacity: 0.4;
+  color: var(--meta);
+  opacity: 0.5;
+  font-style: italic;
 }
 
+/* El botón de Enter */
 .terminal-form .search-submit {
-  background: none;
+  background: var(--accent1);
+  color: var(--bg-card);
   border: none;
-  color: var(--accent1);
-  font-size: 1.2em;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-weight: bold;
   cursor: pointer;
-  padding-left: 0.3em;
-  transition: 0.2s;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-left: 10px;
 }
 
 .terminal-form .search-submit:hover {
-  color: #9f9;
-  text-shadow: 0 0 5px #9f9;
+  opacity: 0.8;
 }
 
-/* Suavizar foco */
+/* Animación de foco */
 .terminal-form:focus-within {
-  box-shadow: 0 0 15px var(--accent1);
+  border-color: var(--accent1);
+}
+
+/* Estilo para la fecha en la lista (index.php) */
+.post-list .date {
+  color: var(--meta);
+  margin-right: 10px;
+  font-family: monospace;
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS PARA HOME.PHP
+   ========================================= */
+
+/* 1. Indicador de Ruta (Breadcrumb) */
+.path-indicator {
+  font-family: monospace;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--border);
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.path-indicator .user {
+  color: var(--accent1);
+  font-weight: bold;
+}
+
+.path-indicator .at {
+  color: var(--text);
+}
+
+.path-indicator .host {
+  color: var(--accent3);
+}
+
+.path-indicator .dir {
+  color: var(--accent1);
+}
+
+/* 2. Cabecera con buscador compacto */
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.header-actions h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Ajuste del buscador para que no sea tan ancho en esta página */
+.terminal-form.compact {
+  width: auto;
+  min-width: 300px;
+  margin: 0;
+  padding: 5px 10px;
+}
+
+/* 3. Permisos falsos (Estética Linux) */
+.perms {
+  color: var(--meta);
+  font-size: 0.8em;
+  margin-right: 15px;
+  font-family: monospace;
+  opacity: 0.5;
+}
+
+/* 4. Paginación Brutalista */
+.pagination-wrapper {
+  margin-top: 3rem;
+  border-top: 1px dashed var(--border);
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.pagination .page-numbers {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 0 4px;
+  border: 2px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.pagination .page-numbers.current {
+  background: var(--accent1);
+  color: var(--bg-card);
+  /* Invierte color */
+  border-color: var(--accent1);
+}
+
+.pagination .page-numbers:hover:not(.current) {
+  background: var(--text);
+  color: var(--bg-card);
+}
+
+/* Fecha alineada */
+.post-list .date {
+  color: var(--accent3);
+  /* Verde/Cyan */
+  margin-right: 10px;
+  font-family: monospace;
+}
+
+/* Ocultar cosas en celular para que no se rompa */
+@media (max-width: 600px) {
+  .mobile-hide {
+    display: none;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .terminal-form.compact {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   FIX: IMÁGENES Y MEDIA RESPONSIVE
+   ========================================= */
+
+/* Regla de oro: Ninguna imagen supera el 100% del ancho disponible */
+img,
+video,
+iframe,
+.wp-caption {
+  max-width: 100%;
+  height: auto;
+  /* Mantiene la proporción para no deformar */
+  display: block;
+  /* Elimina espacios extraños abajo */
+}
+
+/* Ajustes específicos para WordPress */
+.aligncenter {
+  margin: 0 auto;
+  display: block;
+}
+
+.alignleft {
+  float: left;
+  margin-right: 1.5em;
+  margin-bottom: 1em;
+}
+
+.alignright {
+  float: right;
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+/* Asegurar que el marco de tu tema Terminal también respete el ancho */
+.post-image-frame {
+  max-width: 100%;
+  overflow: hidden;
+  /* Corta cualquier cosa que intente salirse */
+  box-sizing: border-box;
+}
+
+/* =========================================
+   ESTILOS SINGLE.PHP (POST INDIVIDUAL)
+   ========================================= */
+
+/* Metadatos (Date, User, Dir) */
+.post-meta-terminal {
+  border: 1px dashed var(--border);
+  padding: 15px;
+  margin-bottom: 2rem;
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.meta-row {
+  margin-bottom: 5px;
+}
+
+.meta-label {
+  color: var(--accent1);
+  /* Color rosa/verde según tema */
+  font-weight: bold;
+  display: inline-block;
+  width: 60px;
+  /* Alineación fija */
+}
+
+/* Imagen con Caption */
+.post-image-frame {
+  margin: 2rem 0;
+  border: 2px solid var(--border);
+  padding: 5px;
+}
+
+.image-caption {
+  font-size: 0.8rem;
+  color: var(--meta);
+  margin-top: 5px;
+  font-family: monospace;
+  text-align: center;
+}
+
+/* Tabla de Contenidos (Look Reporte) */
+.toc {
+  background: var(--bg-body);
+  border: 2px solid var(--accent3);
+  /* Borde Cyan/Verde */
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.toc-header {
+  background: var(--accent3);
+  color: var(--bg-body);
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.toc ul {
+  padding: 15px;
+  margin: 0;
+  list-style: none;
+}
+
+.toc li a {
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+  padding: 3px 0;
+  border-bottom: 1px dotted var(--border);
+}
+
+.toc li a:hover {
+  color: var(--accent1);
+  padding-left: 5px;
+  /* Pequeña animación */
+}
+
+/* Navegación Siguiente / Anterior */
+.navigation-terminal {
+  margin-top: 4rem;
+  border-top: 2px solid var(--border);
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  flex: 1;
+  min-width: 280px;
+}
+
+.nav-btn .label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--meta);
+  margin-bottom: 5px;
+}
+
+.nav-btn a {
+  display: block;
+  border: 1px solid var(--border);
+  padding: 15px;
+  background: var(--bg-card);
+  font-weight: bold;
+}
+
+.nav-btn a:hover {
+  background: var(--accent1);
+  color: var(--bg-card);
+  border-color: var(--accent1);
+}
+
+.nav-btn .disabled {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+/* Relacionados */
+.related-terminal {
+  margin-top: 3rem;
+  background: rgba(128, 128, 128, 0.05);
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.related-terminal h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  color: var(--accent2);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-list li {
+  padding: 5px 0;
+  font-family: monospace;
+}
+
+.file-list .perms {
+  color: var(--meta);
+  margin-right: 10px;
+}
+
+/* =========================================
+   ESTILOS SEARCH.PHP
+   ========================================= */
+
+.search-status {
+  margin: 1.5rem 0;
+  font-family: monospace;
+  font-size: 0.95rem;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 10px;
+}
+
+.status-success {
+  color: var(--accent3);
+  font-weight: bold;
+}
+
+.status-error {
+  color: var(--accent2);
+  font-weight: bold;
+  animation: blink 1s step-end infinite;
+}
+
+.empty-state-terminal {
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 4px solid var(--accent2);
+  /* Borde rojo */
+  padding: 20px;
+  font-family: monospace;
+  margin-top: 2rem;
+}
+
+.empty-state-terminal ul {
+  list-style: square;
+  margin-left: 20px;
+  color: var(--meta);
+}
+
+.highlight {
+  background-color: var(--accent2);
+  color: var(--bg-card);
+  padding: 0 2px;
+}
+
+/* =========================================
+   ESTILOS COMENTARIOS (TERMINAL LOGS)
+   ========================================= */
+
+.comments-terminal {
+  margin-top: 3rem;
+  border-top: 4px double var(--border);
+  /* Doble línea para separar */
+  padding-top: 2rem;
+}
+
+.terminal-header {
+  background: var(--text);
+  color: var(--bg-card);
+  display: inline-block;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: monospace;
+}
+
+/* --- LISTA DE COMENTARIOS --- */
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comment-body {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  margin-bottom: 15px;
+  padding: 15px;
+  position: relative;
+  font-family: monospace;
+}
+
+/* Autor y Fecha (Meta) */
+.comment-meta {
+  font-size: 0.85rem;
+  color: var(--meta);
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fn {
+  /* Nombre del autor */
+  font-weight: bold;
+  color: var(--accent1);
+  text-transform: uppercase;
+}
+
+.fn::before {
+  content: "USER: ";
+}
+
+/* Prefijo */
+
+.comment-metadata a {
+  color: var(--meta);
+  text-decoration: none;
+}
+
+.comment-metadata::before {
+  content: "TIME: ";
+}
+
+/* Avatar */
+.avatar {
+  float: left;
+  margin-right: 15px;
+  border: 2px solid var(--border);
+  border-radius: 0 !important;
+  /* Cuadrado */
+  width: 40px;
+  height: 40px;
+}
+
+/* Texto del comentario */
+.comment-content p {
+  margin: 0.5em 0;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* Botón Responder */
+.reply {
+  text-align: right;
+}
+
+.comment-reply-link {
+  font-size: 0.8rem;
+  border: 1px solid var(--accent3);
+  color: var(--accent3);
+  padding: 2px 8px;
+  text-transform: uppercase;
+}
+
+.comment-reply-link:hover {
+  background: var(--accent3);
+  color: var(--bg-card) !important;
+}
+
+/* Comentarios anidados (Respuestas) */
+.children {
+  list-style: none;
+  margin-left: 20px;
+  /* Sangría */
+  border-left: 2px solid var(--border);
+  padding-left: 10px;
+}
+
+/* --- FORMULARIO DE RESPUESTA --- */
+
+.comment-respond {
+  margin-top: 3rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  padding: 20px;
+}
+
+.comment-reply-title {
+  font-size: 1.2rem;
+  color: var(--accent2);
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.comment-reply-title small a {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+/* Inputs del formulario */
+.comment-form label {
+  display: block;
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: var(--accent3);
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"],
+.comment-form textarea {
+  width: 100%;
+  background: #000;
+  /* Fondo negro terminal */
+  color: #0f0;
+  /* Letras verdes */
+  border: 1px solid var(--border);
+  padding: 10px;
+  font-family: "Google Sans Code", monospace;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  border-color: var(--accent1);
+  box-shadow: 0 0 5px var(--accent1);
+}
+
+/* Checkbox GDPR y otros */
+.comment-form-cookies-consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+/* Botón Enviar Comentario */
+.form-submit .submit {
+  background: var(--text);
+  color: var(--bg-card);
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.form-submit .submit:hover {
+  background: var(--accent1);
+  color: #fff;
+}
+
+/* =========================================
+   ESTILOS PAGE.PHP (PÁGINAS ESTÁTICAS)
+   ========================================= */
+
+/* Cabecera específica de páginas */
+.page-header-terminal {
+  border-bottom: 2px solid var(--text);
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: var(--text);
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  letter-spacing: -1px;
+}
+
+/* Estadísticas de archivo (Size, Mode, Updated) */
+.page-stats {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--meta);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.page-stats .stat {
+  background: rgba(128, 128, 128, 0.1);
+  padding: 2px 6px;
+  border: 1px dotted var(--border);
+}
+
+.page-stats .val {
+  color: var(--accent3);
+  /* Color técnico (cyan/verde) */
+  font-weight: bold;
+}
+
+/* Enlace de edición para el admin */
+.admin-edit-command {
+  margin-top: 40px;
+  border-top: 1px dashed var(--border);
+  padding-top: 10px;
+  text-align: right;
+}
+
+.admin-edit-command a {
+  background: #000;
+  color: var(--accent2);
+  /* Amarillo/Rojo de advertencia */
+  padding: 5px 10px;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: 1px solid var(--accent2);
+}
+
+.admin-edit-command a:hover {
+  background: var(--accent2);
+  color: #000 !important;
+}
+
+/* =========================================
+   ESTILOS FRONT-PAGE (HOME)
+   ========================================= */
+
+/* 1. Ventana de Terminal (Bienvenida) */
+.welcome-terminal {
+  border: 2px solid var(--border);
+  margin-bottom: 2rem;
+  background: var(--bg-card);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.terminal-header-bar {
+  background: var(--border);
+  /* Gris oscuro */
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-header-bar .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  /* Opcional: redondos o cuadrados */
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.dot.red {
+  background: #ff5f56;
+}
+
+.dot.yellow {
+  background: #ffbd2e;
+}
+
+.dot.green {
+  background: #27c93f;
+}
+
+.terminal-header-bar .title-bar {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.8rem;
+  color: var(--bg-body);
+  /* Texto inverso */
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.welcome-content {
+  padding: 20px;
+}
+
+.welcome-content h1 {
+  color: var(--accent1);
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+/* Estadísticas del sistema falsas */
+.system-stats {
+  margin-top: 15px;
+  font-size: 0.75rem;
+  color: var(--meta);
+  border-top: 1px dashed var(--border);
+  padding-top: 10px;
+  display: flex;
+  gap: 15px;
+  font-family: monospace;
+}
+
+/* 2. Layout de 2 columnas (Posts + Categorías) */
+.two-columns {
+  display: flex;
+  gap: 30px;
+  margin-top: 2rem;
+}
+
+.main-files {
+  flex: 2;
+  /* Ocupa 2/3 del espacio */
+}
+
+.sidebar-dirs {
+  flex: 1;
+  /* Ocupa 1/3 del espacio */
+}
+
+/* 3. Lista de Directorios (Categorías) */
+.dir-list {
+  list-style: none;
+  padding: 0;
+  font-family: monospace;
+}
+
+.dir-list li {
+  margin-bottom: 8px;
+}
+
+.dir-list a {
+  color: var(--accent3);
+  /* Color carpeta */
+  display: block;
+  padding: 5px;
+  border: 1px solid transparent;
+}
+
+.dir-list a:hover {
+  border-color: var(--accent3);
+  background: rgba(0, 0, 0, 0.03);
+  text-decoration: none;
+}
+
+.folder-icon {
+  margin-right: 5px;
+}
+
+.count {
+  color: var(--meta);
+  font-size: 0.8em;
+}
+
+/* 4. Enlace "Ver todos" */
+.view-all-cmd {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.view-all-cmd a {
+  font-family: monospace;
+  font-weight: bold;
+  color: var(--accent1);
+}
+
+/* Extensión de archivo .md (decorativo) */
+.ext {
+  color: var(--meta);
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+/* Responsive para columnas */
+@media (max-width: 768px) {
+  .two-columns {
+    flex-direction: column;
+  }
+
+  .sidebar-dirs {
+    order: -1;
+    /* Poner categorías arriba en móvil (opcional) */
+    margin-bottom: 2rem;
+  }
+}
+
+/* =========================================
+   CONTACT FORM 7 (ESTILO TERMINAL)
+   ========================================= */
+
+/* Contenedor principal del formulario */
+.terminal-contact-form {
+  margin-top: 20px;
+  font-family: "Google Sans Code", "Courier New", monospace;
+}
+
+/* Etiquetas (Prompts) */
+.terminal-contact-form label {
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.terminal-contact-form .cmd-prompt {
+  display: block;
+  color: var(--accent1);
+  /* Color acento (Rosa/Verde) */
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.terminal-contact-form .cmd-prompt::before {
+  content: "> ";
+  color: var(--meta);
+}
+
+/* Inputs y Textarea (Cajas de texto) */
+.wpcf7-form-control-wrap input,
+.wpcf7-form-control-wrap textarea {
+  width: 100%;
+  background-color: #000 !important;
+  /* Fondo negro puro */
+  color: #00ff00;
+  /* Texto verde terminal */
+  border: 2px solid var(--border);
+  padding: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  border-radius: 0 !important;
+  /* Cero curvas */
+  box-shadow: none;
+}
+
+/* Efecto al escribir (Focus) */
+.wpcf7-form-control-wrap input:focus,
+.wpcf7-form-control-wrap textarea:focus {
+  border-color: var(--accent1);
+  box-shadow: 0 0 8px var(--accent1);
+  /* Glow suave */
+}
+
+/* Placeholder (texto de ayuda) */
+.wpcf7 input::placeholder,
+.wpcf7 textarea::placeholder {
+  color: #004400;
+  /* Verde muy oscuro */
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Botón de Enviar (Submit) */
+.wpcf7-submit {
+  width: 100%;
+  background-color: var(--text) !important;
+  color: var(--bg-card) !important;
+  border: none;
+  padding: 15px;
+  font-weight: bold;
+  font-family: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+  border-radius: 0 !important;
+}
+
+.wpcf7-submit:hover {
+  background-color: var(--accent1) !important;
+  color: #fff !important;
+  box-shadow: 4px 4px 0 var(--border);
+  /* Sombra dura */
+  transform: translate(-2px, -2px);
+}
+
+/* --- MENSAJES DE ESTADO (Éxito / Error) --- */
+
+/* Caja general de respuesta */
+.wpcf7-response-output {
+  margin: 20px 0 !important;
+  padding: 15px !important;
+  font-size: 0.9rem;
+  border-radius: 0 !important;
+  font-family: monospace;
+  border-width: 2px !important;
+}
+
+/* Mensaje de ERROR (Rojo/Amarillo) */
+form.invalid .wpcf7-response-output,
+form.failed .wpcf7-response-output {
+  background-color: rgba(255, 0, 0, 0.1);
+  border-color: #ff0000 !important;
+  color: #ff0000;
+}
+
+form.invalid .wpcf7-response-output::before {
+  content: ">> FATAL_ERROR: ";
+  font-weight: bold;
+}
+
+/* Mensaje de ÉXITO (Verde/Cyan) */
+form.sent .wpcf7-response-output {
+  background-color: rgba(0, 255, 0, 0.1);
+  border-color: #00ff00 !important;
+  color: var(--text);
+}
+
+form.sent .wpcf7-response-output::before {
+  content: ">> SUCCESS: ";
+  font-weight: bold;
+  color: #00ff00;
+}
+
+/* Errores de validación debajo de cada input */
+.wpcf7-not-valid-tip {
+  color: #ff0000;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.wpcf7-not-valid-tip::before {
+  content: "[!] ";
+}
+
+/* Ocultar el spinner de carga por defecto (rompe la estética) */
+.wpcf7-spinner {
+  background-color: var(--accent1);
+  border-radius: 0;
+  margin: 0 auto;
 }
