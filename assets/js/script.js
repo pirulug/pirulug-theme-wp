@@ -36,3 +36,48 @@ function updateIcons(theme) {
     moonIcon.style.display = "inline";
   }
 }
+ 
+
+// Menu
+
+// Código pequeño y robusto para togglear el submenu con clic, y cerrar al clicar fuera
+document.addEventListener('click', function (e) {
+  const toggle = e.target.closest('.has-sub');
+
+  // Si hicimos clic en un toggle de submenú
+  if (toggle) {
+    e.preventDefault();
+    const li = toggle.parentElement;
+    const isOpen = li.classList.contains('open');
+
+    // Cerrar otros abiertos (opcional)
+    document.querySelectorAll('.menu li.open').forEach(node => {
+      if (node !== li) {
+        node.classList.remove('open');
+        node.querySelector('.has-sub')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    li.classList.toggle('open', !isOpen);
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    return;
+  }
+
+  // clic fuera del menú: cerrar todo
+  if (!e.target.closest('.menu')) {
+    document.querySelectorAll('.menu li.open').forEach(node => {
+      node.classList.remove('open');
+      node.querySelector('.has-sub')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+});
+
+// Cerrar con ESC
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.menu li.open').forEach(node => {
+      node.classList.remove('open');
+      node.querySelector('.has-sub')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+});

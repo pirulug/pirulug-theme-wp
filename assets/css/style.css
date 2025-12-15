@@ -68,7 +68,7 @@ a:hover {
   text-decoration: underline;
 }
 
-h1,
+/* h1,
 h2,
 h3 {
   font-weight: bold;
@@ -89,7 +89,7 @@ h2 {
 h3 {
   color: var(--accent4);
   font-size: 1.2rem;
-}
+} */
 
 .ascii-line {
   text-align: center;
@@ -133,18 +133,35 @@ footer {
   color: var(--ascii);
 }
 
-/* Menú retro */
+/* Reset básico para el ul anidado */
+.menu, .menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
 .menu {
   text-align: start;
   margin: 1.2em 0;
   font-size: 1rem;
   letter-spacing: 0.5px;
+  color: var(--ascii);
 }
 
+/* Elementos de primer nivel */
+.menu > li {
+  display: inline-block;       /* inline-block es más predecible para submenus */
+  position: relative;          /* <<--- imprescindible para que el .sub-menu se posicione respecto a este li */
+  vertical-align: top;
+}
+
+/* Links */
 .menu a {
   color: var(--accent1);
   text-decoration: none;
-  padding: 0 0.4em;
+  padding: 0.5em 0.8em;
+  display: inline-block;
   transition: color 0.2s;
 }
 
@@ -153,23 +170,61 @@ footer {
   text-decoration: underline;
 }
 
-/* Opcional: aclarar los pipes */
-.menu {
-  color: var(--ascii);
+/* Flecha indicadora para items con submenu */
+.menu .has-sub::after {
+  content: "▾";
+  margin-left: .4em;
+  font-size: .8em;
+  transition: transform .18s;
 }
 
-.menu ul {
-  padding: 0;
+/* SUBMENU */
+.sub-menu {
+  display: none;               /* oculto por defecto */
+  position: absolute;
+  top: 35px;
+  left: 0;
+  transform: translateY(6px);  /* pequeño espacio */
+  background: var(--bg1, #222);
+  /* border-radius: 6px; */
+  padding: .25rem 0;
+  min-width: 160px;
+  z-index: 9999;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  white-space: nowrap;
 }
 
-.menu li {
-  list-style: none;
-  display: inline-flex;
+/* items dentro del submenú */
+.sub-menu li {
+  display: block;
 }
-
-.menu a {
+.sub-menu a {
+  padding: .5em 1em;
+  display: block;
   color: var(--accent1);
 }
+.sub-menu a:hover {
+  background: var(--accent1);
+  color: var(--bg1, #fff);
+  text-decoration: none;
+}
+
+/* Mostrar submenu en hover (escritorio) y al tener foco (accesibilidad) */
+.menu li:hover > .sub-menu,
+.menu li:focus-within > .sub-menu,
+.menu li.open > .sub-menu {   /* .open para la versión móvil con JS */
+  display: block;
+}
+
+/* Girar la flechita cuando está abierto/focus */
+.menu li:focus-within > .has-sub::after,
+.menu li.open > .has-sub::after {
+  transform: rotate(180deg);
+}
+
+/* Recomiendo forzar visible overflow en los contenedores que suelen cortar el menú */
+.menu, nav { overflow: visible; }
+
 
 /* Bienvenida */
 .welcome {
@@ -299,11 +354,21 @@ footer {
 }
 
 /* Sangrías automáticas por nivel */
-.toc li[data-level="2"] { margin-left: 0.5em; }
-.toc li[data-level="3"] { margin-left: 1em; }
-.toc li[data-level="4"] { margin-left: 1.5em; }
-.toc li[data-level="5"] { margin-left: 2em; }
-.toc li[data-level="6"] { margin-left: 2.5em; }
+.toc li[data-level="2"] {
+  margin-left: 0.5em;
+}
+.toc li[data-level="3"] {
+  margin-left: 1em;
+}
+.toc li[data-level="4"] {
+  margin-left: 1.5em;
+}
+.toc li[data-level="5"] {
+  margin-left: 2em;
+}
+.toc li[data-level="6"] {
+  margin-left: 2.5em;
+}
 
 .post-content {
   margin-top: 1.5em;
@@ -393,4 +458,67 @@ footer {
 
 .links-list a:hover {
   text-decoration: underline;
+}
+
+/* === Formulario terminal retro === */
+.terminal-form {
+  width: 100%;
+  background: #000;
+  border: 2px solid var(--accent1);
+  color: var(--accent1);
+  font-size: 1rem;
+  padding: 0.6em;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  /* box-shadow: 0 0 10px var(--accent1); */
+}
+
+.terminal-form label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.terminal-form .prompt {
+  color: var(--accent1);
+  margin-right: 0.5em;
+  font-weight: bold;
+  user-select: none;
+}
+
+.terminal-form .search-field {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--accent1);
+  width: 100%;
+  font-family: inherit;
+  caret-color: var(--accent1);
+}
+
+.terminal-form .search-field::placeholder {
+  color: var(--accent1);
+  opacity: 0.4;
+}
+
+.terminal-form .search-submit {
+  background: none;
+  border: none;
+  color: var(--accent1);
+  font-size: 1.2em;
+  cursor: pointer;
+  padding-left: 0.3em;
+  transition: 0.2s;
+}
+
+.terminal-form .search-submit:hover {
+  color: #9f9;
+  text-shadow: 0 0 5px #9f9;
+}
+
+/* Suavizar foco */
+.terminal-form:focus-within {
+  box-shadow: 0 0 15px var(--accent1);
 }

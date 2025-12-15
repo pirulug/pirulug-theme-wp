@@ -1,8 +1,9 @@
 <?php get_header(); ?>
 
 <div class="section">
-  <h1>📝 Todos los Artículos</h1>
+  <h1>🔍 Resultados de búsqueda</h1>
 
+  <!-- Formulario de búsqueda (para refinar búsqueda) -->
   <form role="search" method="get" class="search-form terminal-form" action="<?php echo esc_url(home_url('/')); ?>">
     <label>
       <span class="prompt">$</span>
@@ -12,7 +13,12 @@
     <button type="submit" class="search-submit">↵</button>
   </form>
 
+  <!-- Mostrar el término buscado -->
+  <?php if (get_search_query()): ?>
+    <p>Mostrando resultados para: <strong><?php echo esc_html(get_search_query()); ?></strong></p>
+  <?php endif; ?>
 
+  <!-- Resultados -->
   <?php if (have_posts()): ?>
     <ul class="post-list">
       <?php while (have_posts()):
@@ -36,7 +42,7 @@
     </div>
 
   <?php else: ?>
-    <p>No se encontraron artículos.</p>
+    <p>No se encontraron resultados para <strong><?php echo esc_html(get_search_query()); ?></strong>.</p>
   <?php endif; ?>
 </div>
 
